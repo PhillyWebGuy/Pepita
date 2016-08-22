@@ -16,6 +16,7 @@ gulp.task('copy-files', function() {
     gulp.src('./node_modules/bootstrap/dist/css/bootstrap-theme.min.css', {cwd: './'}).pipe(gulp.dest('./dist/css'));
     gulp.src('./node_modules/bootstrap/dist/fonts/*', {cwd: './'}).pipe(gulp.dest('./dist/fonts'));
     gulp.src('./node_modules/bootstrap/dist/js/bootstrap.min.js', {cwd: './'}).pipe(gulp.dest('./dist/js'));
+    gulp.src('./src/styles/*.css', {cwd: './'}).pipe(gulp.dest('./dist/css'));
 });
 
 // Delete the dist directory

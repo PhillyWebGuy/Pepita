@@ -1,15 +1,25 @@
 # Pepita
-Another JavaScript micro-framework. "Pepita" is Spanish for "little pumpkin seed" and is the nickname I have given my youngest daughter.
+Another JavaScript micro-framework. "Pepita" is Spanish for "little pumpkin seed" and is the nickname of my youngest daughter.
 
-The purpose of this 'framework' is to provide a light-weight framework when no particular framework is required with a project.
+The purpose of this project:
 
-This micro-framework will help you with the following:
+- Provide a light-weight framework when no particular framework is required with a project
+- Give me an excuse to catalog re-usable methods, such as regex functions
+- Produce opportunity for me to experiment with and catalog various OO design patterns
 
-    - Standardize how you instantiate widget objects
-    - Standardize namespacing
-    - Standardize how you instantiate helper objects
-    - Help you build re-usable libraries that may be used in future projects
-    - Help you abstract your code so it will be available for future use
+This micro-framework may help you with the following:
+
+- Standardize how you instantiate widget objects
+- Enforce the concept of private/public properties/methods in your code
+- Produce a predictable namespacing pattern
+- Encourage the ongoing production of helper objects/libraries
+- Help you abstract your code so it will be available for future use
+- Provide simple sub-classing pattern
+
+This project will find most value in the following places:
+
+- Projects with small, decentralized teams where some simple coding patterns would be helpful
+- Teams where programmers are looking to build a library of re-usable code that can be ported from project-to-project easily
 
 
 Table Of Contents
