@@ -16,8 +16,8 @@ Table Of Contents
 -----------------
 - [Installation](#installation)
 - [How it works](#how-it-works)
-- [Classes](#classes)
 - [Markup](#markup)
+- [Classes](#classes)
 - [Sub-classes](#sub-classes)
 - [Helper Objects](#helper-objects)
 - [To-Do](#to-do)
@@ -70,9 +70,9 @@ $(function () {
 
 The code does the following:
 
-    - It searches for DOM elements with the data-pepita property.
-    - For each such DOM element, it obtains the value of the property
-    - Based upon the value of the data-pepita property, it tries to instantiate an object by than name and passes the DOM element as an argument
+- It searches for DOM elements with the data-pepita property.
+- For each such DOM element, it obtains the value of the property
+- Based upon the value of the data-pepita property, it tries to instantiate an object by than name and passes the DOM element as an argument
 
 That is it.
 
@@ -208,9 +208,9 @@ To-Do
 
 Current Roadmap includes:
 
-    - Soliciting feed-back from the public
-    - Unit Tests
-    - More demos
+- Soliciting feed-back from the public
+- Unit Tests
+- More demos
 
 
 
