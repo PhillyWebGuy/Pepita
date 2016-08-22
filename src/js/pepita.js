@@ -1,60 +1,21 @@
-var Pepita = function () {
+/*
+Methods inherited by each child of Pepita. Should contain methods
+related to functioning of framework.
+ */
+function Helpers(options) {
 
     var instance;
-    var self = this;
+    options = options || {};
 
     function init() {
-
-        // Private methods and variables
-        function privateMethod() {
-            console.log("I am private");
-        }
-
-        var privateVariable = "Im also private";
-
-        var privateRandomNumber = Math.random();
-
         return {
-
-            // Public methods and variables
-            publicMethod: function () {
-                console.log("The public can see me!");
-            },
-
-            publicProperty: "I am also public",
-
-            getRandomNumber: function () {
-                return privateRandomNumber;
-            },
-
-            extend: function (ns_string) {
-                var parts = ns_string.split('.'),
-                    parent = self,
-                    pl, i;
-
-                /*if (parts[0] === "myApp") {
-                    parts = parts.slice(1);
-                }*/
-
-                pl = parts.length;
-                for (i = 0; i < pl; i++) {
-                    //create a property if it doesnt exist
-                    if (typeof parent[parts[i]] === 'undefined') {
-                        parent[parts[i]] = {};
-                    }
-
-                    parent = parent[parts[i]];
-                }
-
-                return parent;
+            getOptions: function (container) {
+                return !$(container).attr("data-options") ? false : JSON.parse($(container).attr("data-options"));
             }
-
-        };
-
+        }
     }
 
     if (!instance) {
-        console.log('!instance');
         instance = init();
     }
 
@@ -62,50 +23,144 @@ var Pepita = function () {
 
 };
 
-window['IC'] = new Pepita();
-window['IC'].extend("Utils");
-
-console.dir(window['IC']);
-
-
-/*extend: function (ns, ns_string) {
- var parts = ns_string.split('.'),
- parent = ns,
- pl, i;
-
- if (parts[0] === "myApp") {
- parts = parts.slice(1);
- }
-
- pl = parts.length;
- for (i = 0; i < pl; i++) {
- //create a property if it doesnt exist
- if (typeof parent[parts[i]] === 'undefined') {
- parent[parts[i]] = {};
- }
-
- parent = parent[parts[i]];
- }
-
- return parent;
- }
+/*
+Generic AJAX and related JSON methods.
  */
+function Comm(options) {
+
+    var instance;
+    options = options || {};
+
+    function init() {
+        return {
+            post: function () {
+                console.log('post');
+            }
+        }
+    }
+
+    if (!instance) {
+        instance = init();
+    }
+
+    return instance;
+};
+
+/*
+Regex library
+ */
+function Regex(options) {
+
+    var instance;
+    options = options || {};
+
+    function init() {
+        return {
+            validZipCode: function () {
+                console.log('valid zip code');
+            }
+        }
+    }
+
+    if (!instance) {
+        instance = init();
+    }
+
+    return instance;
+
+};
+
+/*
+Utilities.
+ */
+function Util(options) {
+
+    var instance;
+    options = options || {};
+
+    function init() {
+        return {
+            regex: {
+                validZipCode: function () {
+                    console.log('valid zip code');
+                }
+            }
+        }
+    }
+
+    if (!instance) {
+        instance = init();
+    }
+
+    return instance;
+
+};
+
+var Pepita = (function () {
+
+    var instance;
+
+    function init() {
+
+        /* Private methods and properties */
+
+        var version = "Version 0.9";
+
+        return {
+
+            /* Public methods and properties */
+
+            Util: new Util(),
+
+            Regex: new Regex(),
+
+            Comm: new Comm(),
+
+            Helpers: new Helpers(),
+
+            debug: true,
+
+            viewPepita: function () {
+                console.dir(this);
+            },
+
+            printVersion: function () {
+                return version;
+            }
+        };
+
+    }
+
+    if (!instance) {
+        instance = init();
+    }
+
+    return instance;
+
+})();
 
 
+$(function () {
 
+    /* Look for every instance of data-pepita in the DOM */
+    /* It is assumed each time this occurs, it is a container for a widget */
+    var $objects = $("[data-pepita]"),
+        container,
+        widget;
 
+    $.each($("[data-pepita]"), function (index) {
+        /* The value of the data-pepita attribute is the name of an object
+         * you will be making a child of the window.Pepita namespace */
+        container = "[data-pepita='" + $(this).attr("data-pepita") + "']";
+        widget = $(this).attr("data-pepita");
+        window.Pepita[widget] = window[widget](container);
+        if(Pepita.debug === true) {
+            console.log(widget + " loaded!");
+        }
+    });
 
+    if(Pepita.debug === true) {
+        Pepita.viewPepita();
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+});

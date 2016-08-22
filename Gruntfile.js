@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+dmodule.exports = function(grunt) {
     'use-strict';
     var paths = {
         target: 'target'
