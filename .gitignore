@@ -3,6 +3,9 @@
 .grunt
 *.log
 /target
+target/
+target
+target/*
 node_modules/
 /node_modules
 node_modules
