@@ -58,6 +58,7 @@ function Regex(options) {
         return {
             validZipCode: function () {
                 console.log('valid zip code');
+                return true;
             }
         }
     }
