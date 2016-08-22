@@ -3,3 +3,7 @@
 .grunt
 *.log
 /target
+node_modules/
+/node_modules
+.idea/
+.idea/*.*
