@@ -1,7 +1,9 @@
-var menu = function(container) {
+/* global Pepita */
+
+var menu = function (container) {
 
     var instance,
-        options = Pepita.Helpers.getOptions(container);
+        options = Pepita ? Pepita.Helpers.getOptions(container) : {};
 
     function init() {
 
@@ -9,16 +11,16 @@ var menu = function(container) {
 
             options: options,
 
-            loadController: (function(){
+            loadController: function () {
 
                 var active = options.activeClass ? options.activeClass : "active";
 
-                $(container).find("a").click(function(event){
+                $(container).find("a").click(function (event) {
                     event.preventDefault();
                     $(container).find("li").toggleClass(active, false);
                     $(event.target).parent("li").toggleClass(active, true);
                 });
-            })
+            }
         };
 
     }
