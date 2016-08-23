@@ -56,18 +56,17 @@ $(function () {
 
     /* Look for every instance of data-pepita in the DOM */
     /* It is assumed each time this occurs, it is a container for a widget */
-    var $objects = $("[data-pepita]"),
-        container,
-        widget;
+    var containerElement,
+        widgetObj;
 
     $.each($("[data-pepita]"), function (index) {
         /* The value of the data-pepita attribute is the name of an object
          * you will be making a child of the window.Pepita namespace */
-        container = "[data-pepita='" + $(this).attr("data-pepita") + "']";
-        widget = $(this).attr("data-pepita");
-        window.Pepita[widget] = window[widget](container);
+        containerElement = "[data-pepita='" + $(this).attr("data-pepita") + "']";
+        widgetObj = $(this).attr("data-pepita");
+        window.Pepita[widgetObj] = new window[widgetObj](containerElement);
         if(Pepita.debug === true) {
-            console.log(widget + " loaded!");
+            console.log("Object '" + widgetObj + "' loaded!");
         }
     });
 
@@ -119,35 +118,29 @@ it simply returns a reference to that object.
 Additionally, this pattern allows us to implement private methods and variables, outside of the object returned by the init() method.
 
 ```
-var menu = function(container) {
+/* global Pepita */
+
+var menu = function (container) {
 
     var instance,
-        options = Pepita.Helpers.getOptions(container);
-
-        /*
-            Private properties and methods here
-        /*
+        options = Pepita ? Pepita.Helpers.getOptions(container) : {};
 
     function init() {
 
         return {
 
-            /*
-                Public properties and methods here
-            */
-
             options: options,
 
-            loadController: (function(){
+            loadController: function () {
 
                 var active = options.activeClass ? options.activeClass : "active";
 
-                $(container).find("a").click(function(event){
+                $(container).find("a").click(function (event) {
                     event.preventDefault();
                     $(container).find("li").toggleClass(active, false);
                     $(event.target).parent("li").toggleClass(active, true);
                 });
-            })
+            }
         };
 
     }
@@ -167,7 +160,7 @@ Sub-Classes
 The "menuAlt" demo example contains an instance where an object is a sub-class of another object. In this example, "menuAlt" is a sub-class of "menu".
 
 ```
-<ul class="nav nav-justified" data-pepita="menuAlt" data-options='{"activeClass": "active"}'>
+<ul class="nav nav-justified" data-pepita="menuAlt" data-options='{"activeClass": "active active-red"}'>
     <li class="active"><a href="#">Link 1</a></li>
     <li><a href="#">Link 2</a></li>
     <li><a href="#">Link 3</a></li>
@@ -182,21 +175,24 @@ As is the case with the menu markup, we have a data-pepita and a data-options pr
 The menuAlt object's code extends the the menu object, and merges new methods and properties into the parent class.
 
 ```
+/* global Pepita, menu */
+
 var menuAlt = function(container) {
 
     var instance,
-        options = options = Pepita.Helpers.getOptions(container);
+        options = Pepita.Helpers.getOptions(container);
 
     function init() {
-        return $.extend({}, new menu(container), {
-            demo: (function(){
+        return $.extend({}, menu(container), {
+            demo: function(){
                 console.log("menuAlt Loaded");
-            })
+            }
         });
     }
 
     if (!instance) {
         instance = init();
+        instance.demo();
     }
 
     return instance;
