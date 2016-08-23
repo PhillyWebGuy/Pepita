@@ -11,7 +11,7 @@ gulp.task('watch',function() {
     gulp.watch('./src/*.html', ['copy-files']);
 });
 
-gulp.task('copy-files', function() {
+gulp.task('copy-files', ['clean'], function() {
     gulp.src('./src/*.html', {cwd: './'}).pipe(gulp.dest('./dist'));
     gulp.src('./node_modules/bootstrap/dist/css/bootstrap.min.css', {cwd: './'}).pipe(gulp.dest('./dist/css'));
     gulp.src('./node_modules/bootstrap/dist/css/bootstrap-theme.min.css', {cwd: './'}).pipe(gulp.dest('./dist/css'));
@@ -30,22 +30,21 @@ gulp.task('lint', function() {
 
 // Delete the dist directory
 gulp.task('clean', function() {
-    return gulp.src("./dist")
-        .pipe(clean());
+    return gulp.src(["./dist"]).pipe(clean());
 });
 
-gulp.task('libraries', function() {
+gulp.task('libraries', ['clean'], function() {
     return gulp.src(['./node_modules/jquery/dist/jquery.js','./node_modules/underscore/underscore.js', './node_modules/bootstrap/dist/js/bootstrap.js'])
         .pipe(concat('libraries.js'))
         .pipe(gulp.dest('./dist/js/'));
 });
 
-gulp.task('scripts', function() {
+gulp.task('scripts', ['clean'], function() {
     return gulp.src(['./src/js/*.js', './src/js/widgets/*.js'])
         .pipe(concat('pepita.js'))
         .pipe(gulp.dest('./dist/js/'));
 });
 
-gulp.task('default', ['clean', 'lint', 'copy-files', 'libraries', 'scripts']);
+gulp.task('default', ['lint', 'clean', 'copy-files', 'libraries', 'scripts']);
 
 
